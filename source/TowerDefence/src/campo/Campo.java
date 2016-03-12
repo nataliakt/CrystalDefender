@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import fase.Fase;
@@ -46,10 +46,6 @@ public class Campo extends JPanel implements Runnable {
         selecao.setCaminhos(caminhos);
         
         gerarBlocos();
-        
-        Torre torre = new Torre(5, 500, 1, 50, 10); // Cria a torre
-        caminho1.getTorres().add(torre); // Adiciona a torre no caminho1
-        torre.setCaminho(caminho1); // Seta o caminho da torre como caminho1
 
         thread = new Thread(this);
         thread.start();
@@ -100,16 +96,11 @@ public class Campo extends JPanel implements Runnable {
 
         for (Caminho caminho : selecao.getCaminhos()) {
 
-//            for (Torre torre : caminho.getTorres()) {
-//            	gc.setColor(Color.gray);
-//                if(torre.isAtivo()){
-//                	gc.fillRect(torre.getX() + 5, caminho.getPosicaoY() + 5, proporcao - 10, proporcao - 10); //Desenha o bloco
-//                    gc.setColor(torre.getCor());
-//                	gc.fillRect(torre.getX() + 10, caminho.getPosicaoY() + 10, proporcao - 20, proporcao - 20); //Desenha a torre
-//                }else{
-//                	gc.fillRect(torre.getX() + 5, caminho.getPosicaoY() + 5, proporcao - 10, proporcao - 10); //Desenha o bloco
-//                }
-//            }
+        	if(clock % 10 == 0){
+	            for (Torre torre : caminho.getTorres()) {
+	            	//torre.setIcon(new ImageIcon("src/imagens/Torre.png"));
+	            }
+        	}
 
             for (Tiro tiro : caminho.getTiros()) {
                 gc.setColor(tiro.getCor());
