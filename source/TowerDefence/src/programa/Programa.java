@@ -13,7 +13,7 @@ import selecao.Selecao;
 
 public class Programa extends JFrame {
 
-    //Singleton instance
+	//Singleton instance
     private JPanel jPanelCampo = null;
 
     //Singleon getInstance()
