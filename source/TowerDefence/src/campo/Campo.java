@@ -1,7 +1,6 @@
-package caminho;
+package campo;
 
 import javax.swing.JPanel;
-import selecao.Fase;
 
 public class Campo extends JPanel implements Runnable{
     

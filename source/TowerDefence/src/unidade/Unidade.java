@@ -1,6 +1,6 @@
 package unidade;
 
-import caminho.Caminho;
+import campo.Caminho;
 import java.awt.Color;
 
 public class Unidade {
@@ -10,12 +10,6 @@ public class Unidade {
     protected boolean vivo;
     protected Color cor;
     protected Caminho caminho;
-
-    public Unidade(int x, int y, Caminho caminho) {
-        this.x = x;
-        this.y = y;
-        this.caminho = caminho;
-    }
 
     public Thread getThread() {
         return thread;

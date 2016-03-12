@@ -1,14 +1,12 @@
 package unidade;
 
-import caminho.Caminho;
 import java.awt.Color;
 
 public class Inimigo extends Unidade implements Runnable{
 
     private int dano, vidaMaxima, vidaAtual, velocidadeAndar, velocidadeSpam, velocidadeAtaque;
 
-    public Inimigo(int dano, int vidaMaxima, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque, int x, int y, Caminho caminho) {
-        super(x, y, caminho);
+    public Inimigo(int dano, int vidaMaxima, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque) {
         cor = Color.red;
         this.dano = dano;
         this.vidaMaxima = vidaMaxima;

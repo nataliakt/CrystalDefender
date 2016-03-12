@@ -1,14 +1,12 @@
 package unidade;
 
-import caminho.Caminho;
 import java.awt.Color;
 
 public class Torre extends Unidade implements Runnable{
 
     private int dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
 
-    public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo, int x, int y, Caminho caminho) {
-        super(x, y, caminho);
+    public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo) {
         cor = Color.green;
         this.dano = dano;
         this.vidaMaxima = vidaMaxima;

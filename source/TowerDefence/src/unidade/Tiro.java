@@ -1,14 +1,12 @@
 package unidade;
 
-import caminho.Caminho;
 import java.awt.Color;
 
 public class Tiro extends Unidade implements Runnable{
     
     private int dano, velocidade;
 
-    public Tiro(int dano, int velocidade, int x, int y, Caminho caminho) {
-        super(x, y, caminho);
+    public Tiro(int dano, int velocidade) {
         cor = Color.black;
         this.dano = dano;
         this.velocidade = velocidade;
