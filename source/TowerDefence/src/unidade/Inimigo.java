@@ -5,7 +5,7 @@ import java.awt.Color;
 
 public class Inimigo extends Unidade implements Runnable{
 
-    int dano, vidaMaxima, vidaAtual, velocidadeAndar, velocidadeSpam, velocidadeAtaque;
+    private int dano, vidaMaxima, vidaAtual, velocidadeAndar, velocidadeSpam, velocidadeAtaque;
 
     public Inimigo(int dano, int vidaMaxima, int vidaAtual, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque, int x, int y, Caminho caminho) {
         super(x, y, caminho);
