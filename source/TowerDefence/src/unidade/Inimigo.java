@@ -7,12 +7,12 @@ public class Inimigo extends Unidade implements Runnable{
 
     private int dano, vidaMaxima, vidaAtual, velocidadeAndar, velocidadeSpam, velocidadeAtaque;
 
-    public Inimigo(int dano, int vidaMaxima, int vidaAtual, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque, int x, int y, Caminho caminho) {
+    public Inimigo(int dano, int vidaMaxima, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque, int x, int y, Caminho caminho) {
         super(x, y, caminho);
         cor = Color.red;
         this.dano = dano;
         this.vidaMaxima = vidaMaxima;
-        this.vidaAtual = vidaAtual;
+        vidaAtual = vidaMaxima;
         this.velocidadeAndar = velocidadeAndar;
         this.velocidadeSpam = velocidadeSpam;
         this.velocidadeAtaque = velocidadeAtaque;
