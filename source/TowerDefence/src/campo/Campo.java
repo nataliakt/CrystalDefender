@@ -13,10 +13,9 @@ public class Campo extends JPanel implements Runnable {
 
     private Thread thread;
     private boolean jogo;
-    private int clock, moedas, inimigos;
+    private int clock, moedas, inimigos, proporcao;
     private Fase fase;
     private Selecao selecao;
-    private int proporcao;
 
     public Campo() {
         jogo = true;
