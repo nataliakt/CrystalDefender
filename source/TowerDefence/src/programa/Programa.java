@@ -1,6 +1,8 @@
 package programa;
 
 import campo.Campo;
+import inicio.Jogador;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,20 +23,61 @@ public class Programa extends JFrame {
         if (jPanelCampo == null) {
             jPanelCampo = new JPanel();
             jPanelCampo.setLayout(new BorderLayout());
+
+            //Topo
+            JPanel topo = new JPanel();
+            topo.setLayout(new BorderLayout());
+            jPanelCampo.add(topo, BorderLayout.NORTH);
+            topo.setPreferredSize(new Dimension(1000, 100));
+            topo.setMaximumSize(topo.getPreferredSize());
+            topo.setMinimumSize(topo.getPreferredSize());
             
-            // Campo
-            jPanelCampo.add(getCampo(), BorderLayout.EAST);
-            campo.setPreferredSize(new Dimension(800, 700));
+            // Selecao < topo
+            topo.add(getSelecao(), BorderLayout.WEST);
+            selecao.setPreferredSize(new Dimension(400, 100));
+            selecao.setMaximumSize(selecao.getPreferredSize());
+            selecao.setMinimumSize(selecao.getPreferredSize());
+            selecao.setBackground(Color.blue);
+
+            // Jogador < topo
+            topo.add(getJogador(), BorderLayout.EAST);
+            jogador.setPreferredSize(new Dimension(600, 100));
+            jogador.setMaximumSize(jogador.getPreferredSize());
+            jogador.setMinimumSize(jogador.getPreferredSize());
+            jogador.setBackground(Color.lightGray);
+            
+            // Baixo
+            JPanel baixo = new JPanel();
+            baixo.setLayout(new BorderLayout());
+            jPanelCampo.add(baixo, BorderLayout.SOUTH);
+            baixo.setPreferredSize(new Dimension(1000, 600));
+            baixo.setMaximumSize(baixo.getPreferredSize());
+            baixo.setMinimumSize(baixo.getPreferredSize());
+            baixo.setBackground(Color.pink);
+            
+            // Muro > baixo
+            JPanel muro = new JPanel();
+            baixo.add(muro, BorderLayout.NORTH);
+            muro.setPreferredSize(new Dimension(1000, 70));
+            muro.setMaximumSize(muro.getPreferredSize());
+            muro.setMinimumSize(muro.getPreferredSize());
+            muro.setOpaque(false);
+            
+            // Caminho > baixo
+            JPanel caminho = new JPanel();
+            caminho.setLayout(new BorderLayout());
+            baixo.add(caminho, BorderLayout.SOUTH);
+            caminho.setPreferredSize(new Dimension(1000, 530));
+            caminho.setMaximumSize(caminho.getPreferredSize());
+            caminho.setMinimumSize(caminho.getPreferredSize());
+            caminho.setOpaque(false);
+
+            // Campo > caminho
+            caminho.add(getCampo(), BorderLayout.EAST);
+            campo.setPreferredSize(new Dimension(800, 530));
             campo.setMaximumSize(campo.getPreferredSize());
-            campo.setMinimumSize(campo.getPreferredSize());            
-            campo.setBorder(BorderFactory.createLineBorder(Color.black));
-            
-            // Selecao
-            jPanelCampo.add(getSelecao(), BorderLayout.WEST);
-            selecao.setPreferredSize(new Dimension(200, 700));
-            selecao.setMaximumSize(campo.getPreferredSize());
-            selecao.setMinimumSize(campo.getPreferredSize());
-            selecao.setBorder(BorderFactory.createLineBorder(Color.black));
+            campo.setMinimumSize(campo.getPreferredSize());
+            campo.setOpaque(false);
         }
         return jPanelCampo;
     }
@@ -61,6 +104,17 @@ public class Programa extends JFrame {
         return selecao;
     }
 
+    //Singleton instance
+    private Jogador jogador = null;
+
+    //Singleton getInstance()
+    private Jogador getJogador() {
+        if (jogador == null) {
+        	jogador = new Jogador();
+        }
+        return jogador;
+    }
+
     //Construtor
     public Programa() {
         super();
@@ -69,9 +123,9 @@ public class Programa extends JFrame {
 
     private void initializeCampo() {
         this.setResizable(false);
-        this.setBounds(new Rectangle(312, 184, 1000, 600));
-        this.setMinimumSize(new Dimension(1000, 600));
-        this.setMaximumSize(new Dimension(1000, 600));
+        this.setBounds(new Rectangle(1000, 700));
+        this.setMinimumSize(new Dimension(1000, 700));
+        this.setMaximumSize(new Dimension(1000, 700));
         this.setLocationRelativeTo(null);
         this.setContentPane(getJPanelCampo());
         this.setTitle("Tower Defence - Jogar");

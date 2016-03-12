@@ -26,7 +26,7 @@ public class Tiro implements Runnable {
     public void run() {
         while (vivo) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1);
             } catch (InterruptedException ex) {
 
             }

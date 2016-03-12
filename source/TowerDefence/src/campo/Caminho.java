@@ -17,6 +17,10 @@ public class Caminho {
         torres = new ArrayList<Torre>();
         tiros = new ArrayList<Tiro>();
         inimigos = new ArrayList<Inimigo>();
+        for(int i = 0; i < 8; i++){
+        	Torre t = new Torre(i * 100, posicaoY);
+        	torres.add(t);
+        }
     }
     
     public void atirar(Torre torre){
@@ -26,8 +30,8 @@ public class Caminho {
     }
     
     public void moverTiro(Tiro tiro) {
-        tiro.setX(tiro.getX() + tiro.getVelocidade());
-        if(tiro.getX() > 800){
+        tiro.setX(tiro.getX() + 1);
+        if(tiro.getX() > 809){
             tiro.setVivo(false);
         }
     }

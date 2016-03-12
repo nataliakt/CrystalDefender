@@ -6,43 +6,54 @@ import javax.swing.JLabel;
 
 import campo.Caminho;
 
-public class Torre extends JLabel implements Runnable{
+public class Torre extends JLabel implements Runnable {
 
+	private Thread thread;
+	private int x, y, clock, dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
+	private boolean vivo, ativo;
+	private Color cor;
+	private Caminho caminho;
 
-    private Thread thread;
-    private int x, y, clock, dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
-    private boolean vivo;
-    private Color cor;
-    private Caminho caminho;
+	public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo) {
+		vivo = true;
+		cor = Color.green;
+		clock = 0;
+		vidaAtual = vidaMaxima;
+		this.dano = dano;
+		this.vidaMaxima = vidaMaxima;
+		this.velocidadeSpam = velocidadeSpam;
+		this.velocidadeTiro = velocidadeTiro;
+		this.custo = custo;
+	}
 
-    public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo) {
-        vivo = true;
-        cor = Color.green;
-        clock = 0;
-        vidaAtual = vidaMaxima;
-        this.dano = dano;
-        this.vidaMaxima = vidaMaxima;
-        this.velocidadeSpam = velocidadeSpam;
-        this.velocidadeTiro = velocidadeTiro;
-        this.custo = custo;
-        thread = new Thread(this);
-        thread.start();
-    }
-    
-    @Override
-    public void run(){
-        while (vivo) {
-            clock++;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
+	public Torre(int x, int y) {
+		ativo = false;
+		cor = Color.gray;
+		this.x = x;
+		this.y = y;
+	}
 
-            }
-            if(clock == 1){
-                caminho.atirar(this);
-            }
-        }
-    }
+	@Override
+	public void run() {
+		while (vivo) {
+			clock++;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+
+			}
+			if (clock == 1) {
+				caminho.atirar(this);
+			}
+		}
+		ativo = false;
+	}
+
+	public void ativar() {
+		ativo = true;
+		thread = new Thread(this);
+		thread.start();
+	}
 
 	public Thread getThread() {
 		return thread;
@@ -147,5 +158,13 @@ public class Torre extends JLabel implements Runnable{
 	public void setCaminho(Caminho caminho) {
 		this.caminho = caminho;
 	}
-    
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
 }

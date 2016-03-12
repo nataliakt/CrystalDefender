@@ -1,5 +1,7 @@
 package inicio;
 
-public class Jogador {
+import javax.swing.JPanel;
+
+public class Jogador extends JPanel{
 
 }
