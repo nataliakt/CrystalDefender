@@ -2,9 +2,18 @@ package unidade;
 
 import java.awt.Color;
 
-public class Torre extends Unidade implements Runnable{
+import javax.swing.JLabel;
 
-    private int dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
+import campo.Caminho;
+
+public class Torre extends JLabel implements Runnable{
+
+
+    private Thread thread;
+    private int x, y, clock, dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
+    private boolean vivo;
+    private Color cor;
+    private Caminho caminho;
 
     public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo) {
         vivo = true;
@@ -35,56 +44,108 @@ public class Torre extends Unidade implements Runnable{
         }
     }
 
-    public int getDano() {
-        return dano;
-    }
+	public Thread getThread() {
+		return thread;
+	}
 
-    public void setDano(int dano) {
-        this.dano = dano;
-    }
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
 
-    public int getVidaMaxima() {
-        return vidaMaxima;
-    }
+	public int getX() {
+		return x;
+	}
 
-    public void setVidaMaxima(int vidaMaxima) {
-        this.vidaMaxima = vidaMaxima;
-    }
+	public void setX(int x) {
+		this.x = x;
+	}
 
-    public int getVidaAtual() {
-        return vidaAtual;
-    }
+	public int getY() {
+		return y;
+	}
 
-    public void setVidaAtual(int vidaAtual) {
-        this.vidaAtual = vidaAtual;
-    }
+	public void setY(int y) {
+		this.y = y;
+	}
 
-    public int getVelocidadeSpam() {
-        return velocidadeSpam;
-    }
+	public int getClock() {
+		return clock;
+	}
 
-    public void setVelocidadeSpam(int velocidadeSpam) {
-        this.velocidadeSpam = velocidadeSpam;
-    }
+	public void setClock(int clock) {
+		this.clock = clock;
+	}
 
-    public int getVelocidadeTiro() {
-        return velocidadeTiro;
-    }
+	public int getDano() {
+		return dano;
+	}
 
-    public void setVelocidadeTiro(int velocidadeTiro) {
-        this.velocidadeTiro = velocidadeTiro;
-    }
+	public void setDano(int dano) {
+		this.dano = dano;
+	}
 
-    public int getCusto() {
-        return custo;
-    }
+	public int getVidaMaxima() {
+		return vidaMaxima;
+	}
 
-    public void setCusto(int custo) {
-        this.custo = custo;
-    }
-    
-    
-    
-    
+	public void setVidaMaxima(int vidaMaxima) {
+		this.vidaMaxima = vidaMaxima;
+	}
+
+	public int getVidaAtual() {
+		return vidaAtual;
+	}
+
+	public void setVidaAtual(int vidaAtual) {
+		this.vidaAtual = vidaAtual;
+	}
+
+	public int getVelocidadeSpam() {
+		return velocidadeSpam;
+	}
+
+	public void setVelocidadeSpam(int velocidadeSpam) {
+		this.velocidadeSpam = velocidadeSpam;
+	}
+
+	public int getVelocidadeTiro() {
+		return velocidadeTiro;
+	}
+
+	public void setVelocidadeTiro(int velocidadeTiro) {
+		this.velocidadeTiro = velocidadeTiro;
+	}
+
+	public int getCusto() {
+		return custo;
+	}
+
+	public void setCusto(int custo) {
+		this.custo = custo;
+	}
+
+	public boolean isVivo() {
+		return vivo;
+	}
+
+	public void setVivo(boolean vivo) {
+		this.vivo = vivo;
+	}
+
+	public Color getCor() {
+		return cor;
+	}
+
+	public void setCor(Color cor) {
+		this.cor = cor;
+	}
+
+	public Caminho getCaminho() {
+		return caminho;
+	}
+
+	public void setCaminho(Caminho caminho) {
+		this.caminho = caminho;
+	}
     
 }
