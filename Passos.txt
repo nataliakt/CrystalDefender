@@ -1,0 +1,5 @@
+1. Criar classe MouseEvent no packege selecao;
+2. Criar um objeto MouseEvent na classe Campo e instanciar no contrutor;
+3. Adicionar as torres criadas no Campo.gerarBlocos() o mouse listener;
+4. Criar uma lista de torres padrão na classe Selecao com o contrutor de atributos;
+5. Exibir a lista no JPanel Selecao;
