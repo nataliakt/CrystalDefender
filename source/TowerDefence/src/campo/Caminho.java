@@ -19,6 +19,19 @@ public class Caminho {
         inimigos = new ArrayList<Inimigo>();
     }
     
+    public void atirar(Torre torre){
+        Tiro t = new Tiro(torre.getX() + 100, torre.getDano(), torre.getVelocidadeTiro());
+        t.setCaminho(this);
+        tiros.add(t);
+    }
+    
+    public void moverTiro(Tiro tiro) {
+        tiro.setX(tiro.getX() + tiro.getVelocidade());
+        if(tiro.getX() > 800){
+            tiro.setVivo(false);
+        }
+    }
+    
     public ArrayList<Torre> getTorres() {
         return torres;
     }

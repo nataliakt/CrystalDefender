@@ -6,7 +6,7 @@ import java.awt.Color;
 public class Unidade {
 
     protected Thread thread;
-    protected int x, y;
+    protected int x, y, clock;
     protected boolean vivo;
     protected Color cor;
     protected Caminho caminho;

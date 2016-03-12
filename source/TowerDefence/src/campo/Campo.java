@@ -38,8 +38,9 @@ public class Campo extends JPanel implements Runnable {
         caminhos.add(caminho5);
         selecao.setCaminhos(caminhos);
         
-        Torre torre = new Torre(5, 500, 1, 10, 10);
-        caminho1.getTorres().add(torre);
+        Torre torre = new Torre(5, 500, 1, 10, 10); // Cria a torre
+        caminho1.getTorres().add(torre); // Adiciona a torre no caminho1
+        torre.setCaminho(caminho1); // Seta o caminho da torre como caminho1
 
         thread = new Thread(this);
         thread.start();
@@ -77,7 +78,7 @@ public class Campo extends JPanel implements Runnable {
 
             for (Tiro tiro : caminho.getTiros()) {
                 gc.setColor(tiro.getCor());
-                gc.fillOval(tiro.getX(), caminho.getPosicaoY() + proporcao / 2, 10, 10); //Desenha o tiro
+                gc.fillOval(tiro.getX(), caminho.getPosicaoY() + proporcao / 2 - 5, 10, 10); //Desenha o tiro
             }
 
             for (Torre torre : caminho.getTorres()) {
