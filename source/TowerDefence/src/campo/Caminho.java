@@ -10,12 +10,15 @@ public class Caminho {
     private ArrayList<Torre> torres;
     private ArrayList<Tiro> tiros;
     private ArrayList<Inimigo> inimigos;
-    int posicaoY;
+    private int posicaoY;
 
     public Caminho(int posicaoY) {
         this.posicaoY = posicaoY;
+        torres = new ArrayList<Torre>();
+        tiros = new ArrayList<Tiro>();
+        inimigos = new ArrayList<Inimigo>();
     }
-
+    
     public ArrayList<Torre> getTorres() {
         return torres;
     }
