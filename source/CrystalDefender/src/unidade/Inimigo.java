@@ -88,7 +88,6 @@ public class Inimigo implements Runnable {
 	}
 	
 	public void receberDano(int dano){
-		System.out.println(dano);
 		vidaAtual -= dano;
 		if(vidaAtual <= 0){
 			vivo = false;

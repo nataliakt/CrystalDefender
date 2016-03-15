@@ -48,6 +48,7 @@ public class Torre implements Runnable {
 			clock++;
 		}
 		caminho.getTorres().set(coluna - 1, null);
+		caminho.getTorres().get(coluna - 1);
 	}
 	
 	public void receberDano(int dano){

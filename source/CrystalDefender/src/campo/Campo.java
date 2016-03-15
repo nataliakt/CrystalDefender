@@ -106,7 +106,9 @@ public class Campo implements Runnable {
 					Torre t = c.getTorres().get(j);
 					if (t != null) {
 						if (!janela.getTorre(i + 1, j + 1).getIcon().toString().equals(t.getImagem())) {
+							System.out.println("aqui");
 							t.setVivo(false);
+							c.getTorres().set(j, null);
 							t = selecao.getTorre(janela.getTorre(i + 1, j + 1).getIcon().toString());
 							c.getTorres().set(j, t);
 							t.ativar(j + 1, c);
