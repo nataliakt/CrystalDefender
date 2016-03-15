@@ -3,30 +3,84 @@ package unidade;
 import java.awt.Color;
 
 import campo.Caminho;
+import campo.Campo;
 
-public class Inimigo implements Runnable{
+public class Inimigo implements Runnable {
 
+	private Thread thread;
+	private int x, clock, dano, vidaMaxima, vidaAtual, velocidadeAndar, velocidadeSpam, velocidadeAtaque;
+	private boolean vivo;
+	private Color cor;
+	private Caminho caminho;
 
-    private Thread thread;
-    private int x, y, clock, dano, vidaMaxima, vidaAtual, velocidadeAndar, velocidadeSpam, velocidadeAtaque;
-    private boolean vivo;
-    private Color cor;
-    private Caminho caminho;
+	public Inimigo(int dano, int vidaMaxima, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque) {
+		vivo = true;
+		clock = 0;
+		cor = Color.red;
+		this.dano = dano;
+		this.vidaMaxima = vidaMaxima;
+		vidaAtual = vidaMaxima;
+		this.velocidadeAndar = velocidadeAndar;
+		this.velocidadeSpam = velocidadeSpam;
+		this.velocidadeAtaque = velocidadeAtaque;
+	}
 
-    public Inimigo(int dano, int vidaMaxima, int velocidadeAndar, int velocidadeSpam, int velocidadeAtaque) {
-        cor = Color.red;
-        this.dano = dano;
-        this.vidaMaxima = vidaMaxima;
-        vidaAtual = vidaMaxima;
-        this.velocidadeAndar = velocidadeAndar;
-        this.velocidadeSpam = velocidadeSpam;
-        this.velocidadeAtaque = velocidadeAtaque;
-    }
+	public Inimigo(Inimigo inimigo, Caminho caminho) {
+		vivo = true;
+		clock = 0;
+		x = 850;
+		cor = inimigo.getCor();
+		this.caminho = caminho;
+		this.dano = inimigo.dano;
+		this.vidaMaxima = inimigo.vidaMaxima;
+		vidaAtual = inimigo.vidaMaxima;
+		this.velocidadeAndar = inimigo.velocidadeAndar;
+		this.velocidadeSpam = inimigo.velocidadeSpam;
+		this.velocidadeAtaque = inimigo.velocidadeAtaque;
+		thread = new Thread(this);
+		thread.start();
+	}
 
-    @Override
-    public void run(){
-        
-    }
+	@Override
+	public void run() {
+		while (vivo) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (clock % milissegundos(velocidadeAndar) == 0) {
+				caminho.andar(this);
+			}
+			if (clock % milissegundos(velocidadeAtaque) == 0) {
+				caminho.atacar(this);
+			}
+			clock++;
+		}
+		caminho.getInimigos().remove(this);
+	}
+
+	public int milissegundos(int velocidade) {
+		switch (velocidade) {
+		case 1:
+			return 50;
+		case 2:
+			return 25;
+		case 3:
+			return 1;
+		default:
+			return 0;
+		}
+	}
+	
+	public void receberDano(int dano){
+		vidaAtual -= dano;
+		if(vidaAtual <= 0){
+			vivo = false;
+			vidaAtual = 0;
+		}
+	}
 
 	public Thread getThread() {
 		return thread;
@@ -42,14 +96,6 @@ public class Inimigo implements Runnable{
 
 	public void setX(int x) {
 		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public int getClock() {
@@ -131,5 +177,5 @@ public class Inimigo implements Runnable{
 	public void setCaminho(Caminho caminho) {
 		this.caminho = caminho;
 	}
-    
+
 }

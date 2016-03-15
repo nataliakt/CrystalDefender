@@ -4,16 +4,17 @@ import unidade.Inimigo;
 
 public class Fase {
 
-	private int fase, inimigos, moedas;
+	private int fase, inimigos, moedas, inimigosQuant;
 	private Inimigo inimigo;
 	private Fase proxima;
 
-	public Fase(int fase, int inimigos, int moedas, Inimigo inimigo, Fase proxima) {
+	public Fase(int fase, int inimigos, int moedas, Inimigo inimigo, int inimigosQuant, Fase proxima) {
 		super();
 		this.fase = fase;
 		this.inimigos = inimigos;
 		this.moedas = moedas;
 		this.inimigo = inimigo;
+		this.inimigosQuant = inimigosQuant;
 		this.proxima = proxima;
 	}
 
@@ -47,6 +48,14 @@ public class Fase {
 
 	public void setInimigo(Inimigo inimigo) {
 		this.inimigo = inimigo;
+	}
+
+	public int getInimigosQuant() {
+		return inimigosQuant;
+	}
+
+	public void setInimigosQuant(int inimigosQuant) {
+		this.inimigosQuant = inimigosQuant;
 	}
 
 	public Fase getProxima() {

@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="janela.MouseEvent"/>
+<fullyQualifiedTypeName name="javax.swing.TransferHandler"/>
+<fullyQualifiedTypeName name="janela.Campo"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="campo.Campo"/>
+<fullyQualifiedTypeName name="janela.Jogo"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.awt.Graphics"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+</qualifiedTypeNameHistroy>

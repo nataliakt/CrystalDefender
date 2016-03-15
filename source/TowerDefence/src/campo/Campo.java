@@ -1,123 +1,122 @@
 package campo;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import fase.Fase;
 import fase.ListaFase;
+import janela.Jogo;
 import selecao.Selecao;
 import unidade.Inimigo;
 import unidade.Tiro;
 import unidade.Torre;
 
-public class Campo extends JPanel implements Runnable {
+public class Campo implements Runnable {
 
-    private Thread thread;
-    private boolean jogo;
-    private int clock, moedas, inimigos, proporcao;
-    private Fase fase;
-    private Selecao selecao;
+	private Thread thread;
+	private boolean jogo, ganhar;
+	private int clock, moedas, inimigos;
+	private Fase fase;
+	private Selecao selecao;
+	private Jogo janela;
 
-    public Campo() {
-        jogo = true;
-        clock = 0;
-        proporcao = 100;
-        ListaFase fases = new ListaFase();
-        fase = fases.getInicio();
-        selecao = new Selecao();
+	public Campo(Jogo janela) {
+		this.janela = janela;
+		jogo = true;
+		ganhar = false;
+		clock = 0;
+		moedas = 0;
+		selecao = new Selecao();
+		ListaFase fases = new ListaFase();
+		fase = fases.getInicio();
+		thread = new Thread(this);
+		thread.start();
+	}
 
-        ArrayList<Caminho> caminhos = new ArrayList<>();
-        Caminho caminho1 = new Caminho(0 * proporcao);
-        caminhos.add(caminho1);
-        Caminho caminho2 = new Caminho(1 * proporcao);
-        caminhos.add(caminho2);
-        Caminho caminho3 = new Caminho(2 * proporcao);
-        caminhos.add(caminho3);
-        Caminho caminho4 = new Caminho(3 * proporcao);
-        caminhos.add(caminho4);
-        Caminho caminho5 = new Caminho(4 * proporcao);
-        caminhos.add(caminho5);
-        selecao.setCaminhos(caminhos);
-        
-        gerarBlocos();
+	public void run() {
+		while (jogo) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (clock % milissegundos(fase.getInimigo().getVelocidadeSpam()) == 0) {
+				if (fase.getInimigos() > inimigos) {
+					for (int i = 0; i < fase.getInimigosQuant(); i++) {
+						if (fase.getInimigos() > inimigos) {
+							inimigos++;
+							int rand = new Random().nextInt(3);
+							Caminho c = selecao.getCaminhos().get(rand);
+							Inimigo inimigo = new Inimigo(fase.getInimigo(), c);
+							c.getInimigos().add(inimigo);
+						}
+					}
+				}else if(selecao.inimigos() == 0){
+					fase = fase.getProxima();
+					if(fase != null){
+						janela.setFase(fase.getFase());
+					}else{
+						jogo = false;
+						ganhar = true;
+					}
+				}
+			}
+			if (clock % 1000 == 0) {
+				moedas += fase.getMoedas();
+				janela.setGold(moedas);
+			}
+			verificarTorres();
+			janela.repaint();
+			janela.getCampo().setSelecao(selecao);
+			janela.getCampo().repaint();
+			clock++;
+		}
 
-        thread = new Thread(this);
-        thread.start();
-    }
-    
-    public void gerarBlocos(){
-    	for(Caminho caminho: selecao.getCaminhos()){
-    		for(int i = 0; i < 8; i++){
-    			Torre t = new Torre(i * proporcao, caminho.getPosicaoY());
-    			caminho.getTorres().add(t);
-    			this.add(t);
-                this.add(t, BorderLayout.WEST);
-                t.setOpaque(true);
-                t.setAlignmentX(100*i+5);
-                t.setAlignmentY(caminho.getPosicaoY()+5);
-                t.setPreferredSize(new Dimension(90, 90));
-                t.setMaximumSize(t.getPreferredSize());
-                t.setMinimumSize(t.getPreferredSize());
-                t.setBackground(Color.gray);
-    		}
-    	}
-    }
+	}
 
-    @Override
-    public void run() {
-        while (true) {
-            if (jogo) {
-                clock++;
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException ex) {
+	public int milissegundos(int velocidade) {
+		switch (velocidade) {
+		case 1:
+			return 8000;
+		case 2:
+			return 5000;
+		case 3:
+			return 1500;
+		default:
+			return 0;
+		}
 
-                }
-                System.out.println(clock);
-                redesenhar();
-            }
-        }
-    }
+	}
 
-    public void redesenhar() {
-        repaint();
-    }
-
-    @Override
-    public void paintComponent(Graphics gc) {
-        //setOpaque(false);
-        super.paintComponent(gc);
-
-        for (Caminho caminho : selecao.getCaminhos()) {
-
-        	if(clock % 10 == 0){
-	            for (Torre torre : caminho.getTorres()) {
-	            	//torre.setIcon(new ImageIcon("src/imagens/Torre.png"));
-	            }
-        	}
-
-            for (Tiro tiro : caminho.getTiros()) {
-                gc.setColor(tiro.getCor());
-                gc.fillOval(tiro.getX(), caminho.getPosicaoY() + proporcao / 2 - 5, 10, 10); //Desenha o tiro
-            }
-//
-//            for (Inimigo inimigo : batalha.getInimigos()) {
-//                gc.setColor(inimigo.getCor());
-//                gc.fillRect(inimigo.getX() + 15, inimigo.getY() + 15, 80, 80); //Desenha a torre
-//            }
-        }
-
-//        gc.drawString("Threads: " + Thread.activeCount(), 100, 125);
-//
-//        if (!jogo) {
-//            gc.drawString("Fim de Jogo", 100, 125);
-//        }
-    }
+	public void verificarTorres() {
+		try {
+			for (int i = 0; i < 3; i++) {
+				Caminho c = selecao.getCaminhos().get(i);
+				for (int j = 0; j < 6; j++) {
+					Torre t = c.getTorres().get(j);
+					if (t != null) {
+						if (!janela.getTorre(i + 1, j + 1).getIcon().toString().equals(t.getImagem())) {
+							t = selecao.getTorre(janela.getTorre(i + 1, j + 1).getIcon().toString());
+							c.getTorres().set(j, t);
+							t.ativar(j + 1, c);
+						}
+						if (!t.isVivo()) {
+							janela.setTorre(0, i + 1, j + 1);
+						}
+					} else {
+						if (janela.getTorre(i + 1, j + 1).getIcon() != null) {
+							t = selecao.getTorre(janela.getTorre(i + 1, j + 1).getIcon().toString());
+							c.getTorres().set(j, t);
+							t.ativar(j + 1, c);
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Erro na verificação de torres!");
+		}
+	}
 
 }

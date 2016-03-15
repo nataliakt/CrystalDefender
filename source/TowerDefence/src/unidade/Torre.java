@@ -1,22 +1,17 @@
 package unidade;
 
-import java.awt.Color;
-
-import javax.swing.JLabel;
-
 import campo.Caminho;
 
-public class Torre extends JLabel implements Runnable {
+public class Torre implements Runnable {
 
 	private Thread thread;
-	private int x, y, clock, dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
-	private boolean vivo, ativo;
-	private Color cor;
+	private int coluna, clock, dano, vidaMaxima, vidaAtual, velocidadeSpam, velocidadeTiro, custo;
+	private boolean vivo;
 	private Caminho caminho;
+	private String imagem;
 
-	public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo) {
+	public Torre(int dano, int vidaMaxima, int velocidadeSpam, int velocidadeTiro, int custo, String imagem) {
 		vivo = true;
-		cor = Color.green;
 		clock = 0;
 		vidaAtual = vidaMaxima;
 		this.dano = dano;
@@ -24,33 +19,61 @@ public class Torre extends JLabel implements Runnable {
 		this.velocidadeSpam = velocidadeSpam;
 		this.velocidadeTiro = velocidadeTiro;
 		this.custo = custo;
+		this.imagem = imagem;
 	}
 
-	public Torre(int x, int y) {
-		ativo = false;
-		cor = Color.gray;
-		this.x = x;
-		this.y = y;
+	public Torre(Torre torre) {
+		vivo = true;
+		clock = 0;
+		vidaAtual = torre.vidaMaxima;
+		this.dano = torre.dano;
+		this.vidaMaxima = torre.vidaMaxima;
+		this.velocidadeSpam = torre.velocidadeSpam;
+		this.velocidadeTiro = torre.velocidadeTiro;
+		this.custo = torre.custo;
+		this.imagem = torre.imagem;
 	}
 
 	@Override
 	public void run() {
 		while (vivo) {
-			clock++;
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(1);
 			} catch (InterruptedException ex) {
 
 			}
-			if (clock == 1) {
+			if (clock % milissegundos(velocidadeSpam) == 0) {
 				caminho.atirar(this);
 			}
+			clock++;
 		}
-		ativo = false;
+		caminho.getTorres().set(coluna - 1, null);
+	}
+	
+	public void receberDano(int dano){
+		vidaAtual -= dano;
+		if(vidaAtual <= 0){
+			vivo = false;
+			vidaAtual = 0;
+		}
+	}
+	
+	public int milissegundos(int velocidade) {
+		switch (velocidade) {
+		case 1:
+			return 2000;
+		case 2:
+			return 1500;
+		case 3:
+			return 1000;
+		default:
+			return 0;
+		}
 	}
 
-	public void ativar() {
-		ativo = true;
+	public void ativar(int coluna, Caminho caminho) {
+		setColuna(coluna);
+		setCaminho(caminho);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -63,20 +86,12 @@ public class Torre extends JLabel implements Runnable {
 		this.thread = thread;
 	}
 
-	public int getX() {
-		return x;
+	public int getColuna() {
+		return coluna;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
+	public void setColuna(int coluna) {
+		this.coluna = coluna;
 	}
 
 	public int getClock() {
@@ -143,14 +158,6 @@ public class Torre extends JLabel implements Runnable {
 		this.vivo = vivo;
 	}
 
-	public Color getCor() {
-		return cor;
-	}
-
-	public void setCor(Color cor) {
-		this.cor = cor;
-	}
-
 	public Caminho getCaminho() {
 		return caminho;
 	}
@@ -159,12 +166,12 @@ public class Torre extends JLabel implements Runnable {
 		this.caminho = caminho;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public String getImagem() {
+		return imagem;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 
 }

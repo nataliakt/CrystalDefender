@@ -8,7 +8,10 @@ public class ListaFase {
 
 	public ListaFase() {
 		Inimigo i1 = new Inimigo(5, 50, 1, 1, 1);
-		Fase fase1 = new Fase(1, 2, 1, i1, null);
+		Inimigo i2 = new Inimigo(10, 100, 1, 1, 1);
+
+		Fase fase2 = new Fase(2, 5, 2, i2, 2, null);
+		Fase fase1 = new Fase(1, 2, 1, i1, 1, fase2);
 		inicio = fase1;
 	}
 
