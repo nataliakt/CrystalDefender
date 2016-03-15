@@ -50,10 +50,10 @@ public class Inimigo implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (clock % milissegundos(velocidadeAndar) == 0) {
+			if (clock % milissegundosAndar(velocidadeAndar) == 0) {
 				caminho.andar(this);
 			}
-			if (clock % milissegundos(velocidadeAtaque) == 0) {
+			if (clock % milissegundosAtaque(velocidadeAtaque) == 0) {
 				caminho.atacar(this);
 			}
 			clock++;
@@ -61,7 +61,7 @@ public class Inimigo implements Runnable {
 		caminho.getInimigos().remove(this);
 	}
 
-	public int milissegundos(int velocidade) {
+	public int milissegundosAndar(int velocidade) {
 		switch (velocidade) {
 		case 1:
 			return 50;
@@ -73,8 +73,22 @@ public class Inimigo implements Runnable {
 			return 0;
 		}
 	}
+
+	public int milissegundosAtaque(int velocidade) {
+		switch (velocidade) {
+		case 1:
+			return 2000;
+		case 2:
+			return 1000;
+		case 3:
+			return 500;
+		default:
+			return 0;
+		}
+	}
 	
 	public void receberDano(int dano){
+		System.out.println(dano);
 		vidaAtual -= dano;
 		if(vidaAtual <= 0){
 			vivo = false;

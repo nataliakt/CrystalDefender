@@ -4,9 +4,18 @@
 <fullyQualifiedTypeName name="javax.swing.TransferHandler"/>
 <fullyQualifiedTypeName name="janela.Campo"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="campo.Campo"/>
 <fullyQualifiedTypeName name="janela.Jogo"/>
-<fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="selecao.Selecao"/>
+<fullyQualifiedTypeName name="unidade.Tiro"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="unidade.Inimigo"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="campo.Campo"/>
+<fullyQualifiedTypeName name="java.awt.FontMetrics"/>
+<fullyQualifiedTypeName name="java.awt.geom.Rectangle2D"/>
 </qualifiedTypeNameHistroy>

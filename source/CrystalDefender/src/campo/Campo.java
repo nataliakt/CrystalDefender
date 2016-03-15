@@ -42,7 +42,7 @@ public class Campo implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (clock % milissegundos(fase.getInimigo().getVelocidadeSpam()) == 0) {
+			if (clock % milissegundos(fase.getInimigo().getVelocidadeSpam()) == 0 || !jogo) {
 				if (fase.getInimigos() > inimigos) {
 					for (int i = 0; i < fase.getInimigosQuant(); i++) {
 						if (fase.getInimigos() > inimigos) {
@@ -53,25 +53,33 @@ public class Campo implements Runnable {
 							c.getInimigos().add(inimigo);
 						}
 					}
-				}else if(selecao.inimigos() == 0){
+				} else if (selecao.inimigos() == 0) {
 					fase = fase.getProxima();
-					if(fase != null){
+					if (fase != null) {
+						inimigos = 0;
 						janela.setFase(fase.getFase());
-					}else{
+					} else {
 						jogo = false;
 						ganhar = true;
 					}
 				}
 			}
-			if (clock % 1000 == 0) {
-				moedas += fase.getMoedas();
-				janela.setGold(moedas);
+			if (jogo) {
+				if (clock % 1000 == 0) {
+					moedas += fase.getMoedas();
+					janela.setGold(moedas);
+				}
+				verificarTorres();
+				janela.repaint();
+				janela.getCampo().setSelecao(selecao);
+				janela.getCampo().repaint();
+				clock++;
 			}
-			verificarTorres();
-			janela.repaint();
-			janela.getCampo().setSelecao(selecao);
-			janela.getCampo().repaint();
-			clock++;
+		}
+		if (ganhar) {
+			janela.getFase().setText("Você Ganhou!");
+		} else {
+			janela.getFase().setText("Você Perdeu!");
 		}
 
 	}
@@ -98,6 +106,7 @@ public class Campo implements Runnable {
 					Torre t = c.getTorres().get(j);
 					if (t != null) {
 						if (!janela.getTorre(i + 1, j + 1).getIcon().toString().equals(t.getImagem())) {
+							t.setVivo(false);
 							t = selecao.getTorre(janela.getTorre(i + 1, j + 1).getIcon().toString());
 							c.getTorres().set(j, t);
 							t.ativar(j + 1, c);

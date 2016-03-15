@@ -66,7 +66,7 @@ public class Pintor extends JPanel {
 			}
 		} catch (Exception e) {
 			// Quando for excluido
-			System.out.println("Erro na pintura!");
+			System.out.println(e.getMessage());
 		}
 	}
 

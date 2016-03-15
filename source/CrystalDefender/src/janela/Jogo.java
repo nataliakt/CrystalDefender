@@ -53,7 +53,7 @@ public class Jogo extends javax.swing.JFrame {
 		fundo = new javax.swing.JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("TowerDefence");
+		setTitle("Crystal Defender");
 		setLocation(new java.awt.Point(0, 0));
 		setMaximumSize(new java.awt.Dimension(1000, 700));
 		setMinimumSize(new java.awt.Dimension(1000, 700));
