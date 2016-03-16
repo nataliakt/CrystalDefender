@@ -1,13 +1,12 @@
 package programa;
 
-import campo.Campo;
-import janela.Jogo;
+import janela.Inicial;
 
 public class Programa {
 
 	public static void main(String[] args) {
 
-		Jogo.iniciar();
+		Inicial.iniciar();
 		
 	}
 
